@@ -19,7 +19,7 @@ options = {
   map_builder = MAP_BUILDER,
   trajectory_builder = TRAJECTORY_BUILDER,
   map_frame = "map",
-  tracking_frame = "hokuyo3d_link",
+  tracking_frame = "hokuyo3d_imu",
   published_frame = "hokuyo3d_link",
   odom_frame = "odom",
   provide_odom_frame = true,
@@ -43,9 +43,9 @@ options = {
 }
 
 MAP_BUILDER.use_trajectory_builder_2d = true
-TRAJECTORY_BUILDER_2D.use_imu_data = false
+TRAJECTORY_BUILDER_2D.use_imu_data = true
 TRAJECTORY_BUILDER_2D.use_online_correlative_scan_matching = true
 POSE_GRAPH.optimization_problem.huber_scale = 1e2
-TRAJECTORY_BUILDER_2D.num_accumulated_range_data = 1
+TRAJECTORY_BUILDER_2D.num_accumulated_range_data = 1  
 
 return options

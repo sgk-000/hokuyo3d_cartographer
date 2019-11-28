@@ -37,8 +37,13 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
     <include file="$(find microstrain_mips)/launch/microstrain.launch">
+        <arg name="port" default="/dev/ttyACM0" />
+        <arg name="imu_rate" default="500" />
         <arg name="imu_frame_id" default="hokuyo3d_imu" />
+        <arg name="imu_topic" default="/gx5/imu/data" />
+        <arg name="imu_filtered_topic" default="/gx5/filtered/imu/data" />
     </include>
 
-    <node pkg="rosbag" type="record" name="rosbag_record" args="--all --output-name=hokuyo3d_gx.bag" output="screen" />
+    <!--node pkg="usb_cam" type="usb_cam_node" name="usb_cam" /-->
+    <node pkg="rosbag" type="record" name="rosbag_record" args="--all --output-name=hokuyo3d_gx5.bag" output="screen" />
 </launch>

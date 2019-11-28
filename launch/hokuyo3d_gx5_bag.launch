@@ -32,19 +32,19 @@
 
     <arg name="rviz" default="true" />
     <arg name="use_log" default="false" />
-    <arg name="bag_file" default="" />
     <arg name="record" default="false" />
-    <arg name="bag_filename" default="/home/koby/robocup/data/bag/hokuyo3d_gx5_11-22.bag" />
+    <arg name="bag_filename" default="/home/koby/robocup/data/bag/hokuyo3d-gx5-imu-corrected.bag" />
 
-    <node name="cartographer_node" pkg="cartographer_ros" type="cartographer_node" args="-configuration_directory $(find cartographer_hokuyo3d)/configuration_files
+    <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+    <node name="cartographer_node" pkg="cartographer_ros" type="cartographer_node" args="
+    -configuration_directory $(find cartographer_hokuyo3d)/configuration_files
             -configuration_basename hokuyo3d_single.lua" output="screen">
         <remap from="/imu" to="/imu/data" />
         <remap from="points2" to="/cloud" />
     </node>
     <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros" type="cartographer_occupancy_grid_node" args="-resolution 0.1" />
-
-    <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf" />
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
     <node name="rviz" pkg="rviz" type="rviz" respawn="true" args="-d $(find cartographer_hokuyo3d)/configuration_files/demo_3d.rviz" if="$(arg rviz)" />
 

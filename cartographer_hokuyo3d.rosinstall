@@ -1,11 +1,11 @@
 - git:
     local-name: cartographer
     uri: https://github.com/googlecartographer/cartographer.git
-    version: 0.3.0
+    version: 1.0.0
 - git:
     local-name: cartographer_ros
     uri: https://github.com/googlecartographer/cartographer_ros.git
-    version: 0.3.0
+    version: 1.0.0
 - git:
     local-name: ceres-solver
     uri: https://ceres-solver.googlesource.com/ceres-solver.git

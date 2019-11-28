@@ -22,8 +22,8 @@ COPY . /catkin_ws/src/cartographer_hokuyo3d
 RUN mkdir /catkin_ws/src -p \
   && cd /catkin_ws \
   && bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_make_isolated --install --install-space=/opt/ros/${ROS_DISTRO} --use-ninja" \
-  && rm -rf /catkin_ws
+  #&& rm -rf /catkin_ws
 
-COPY slam.sh /
+#COPY slam.sh /
 
-CMD ["bash", "-c", "/slam.sh"]
+#CMD ["bash", "-c", "/slam.sh"]

@@ -16,12 +16,12 @@
 
 <launch>
 
-    <param name="/use_sim_time" value="true" />
+  <param name="/use_sim_time" value="true" />
 
     <arg name="rviz" default="true" />
     <arg name="use_log" default="false" />
     <arg name="record" default="false" />
-    <arg name="bag_filename" default="/home/koby/robocup/data/bag/hokuyo3d_gx5_11-22.bag" />
+    <arg name="bag_filename" default="/home/koby/robocup/data/bag/hokuyo3d-gx5-imu-corrected.bag" />
 
     <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf" />
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
@@ -31,13 +31,16 @@
                 -configuration_basename hokuyo3d_2d.lua" output="screen">
         <remap from="echoes" to="horizontal_laser_2d" />
         <remap from="points2" to="/cloud" />
+        <remap from="imu" to="/imu/data" />
     </node>
 
     <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros" type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
 
-    <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_2d.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find cartographer_hokuyo3d)/configuration_files/demo_3d.rviz" />
     <node name="playbag" pkg="rosbag" type="play" args="--clock $(arg bag_filename)" >
-        <remap from="/hokuyo3d/hokuyo_cloud2" to="/cloud" />
+      <remap from="/hokuyo3d/hokuyo_cloud2" to="/cloud" />
+      <remap from="/gx5/imu/data" to="/imu/data" />
+      <remap from="/gx5/filtered/imu/data" to="/imu/data" />         
 </node>
 
 </launch>

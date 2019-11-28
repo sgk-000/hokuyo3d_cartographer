@@ -8,7 +8,7 @@
   <joint name="base_to_laser" type="fixed">
     <parent link="hokuyo3d_link" />
 		<child link="hokuyo3d" />
-    <origin xyz="0.071 0.0 0.0055" rpy="0.0 0.0 0.0" />
+    <origin xyz="0.071 0.0 0.055" rpy="0.0 0.0 0.0" />
   </joint>
   <joint name="base_to_imu" type="fixed">
     <parent link="hokuyo3d_link" />

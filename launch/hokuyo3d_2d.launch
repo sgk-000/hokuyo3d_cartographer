@@ -29,8 +29,11 @@
             -configuration_directory $(find cartographer_hokuyo3d)/configuration_files
             -configuration_basename hokuyo3d_2d.lua" output="screen">
         <remap from="echoes" to="horizontal_laser_2d" />
-        <remap from="points2" to="/cloud" />
+        <remap from="/points2" to="/cloud" />
+        <remap from="/imu" to="/imu/data" />
     </node>
+
+    <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros" type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
 
     <node pkg="hokuyo3d" type="hokuyo3d" name="hokuyo3d" respawn="true" unless="$(arg use_log)">
         <param name="output_cycle" value="frame" />
@@ -38,7 +41,12 @@
         <remap from="~/hokuyo_cloud2" to="/cloud" />
     </node>
 
-    <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros" type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
+    <include file="$(find microstrain_mips)/launch/microstrain.launch">
+        <arg name="port" default="/dev/ttyACM0" />
+        <arg name="imu_frame_id" default="hokuyo3d_imu" />
+        <arg name="imu_topic" default="/imu/data" />
+        <arg name="imu_filtered_topic" default="/gx5/filtered/imu/data" />
+    </include>
 
     <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find cartographer_ros)/configuration_files/demo_2d.rviz" />
 
