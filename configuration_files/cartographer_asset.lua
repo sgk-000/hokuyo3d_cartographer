@@ -36,6 +36,11 @@ options = {
       max_range = 30.,
     },
     {
+    action = "color_points",
+    frame_id = "hokuyo3d",
+    color = { 0., 255., 0. },
+    },
+    {
       action = "write_pcd",
       filename = "pointcloud.pcd",
     },

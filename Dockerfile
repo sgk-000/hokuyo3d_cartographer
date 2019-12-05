@@ -1,4 +1,4 @@
-FROM ros:kinetic
+FROM ros:melodic
 
 RUN apt-get update -qq \
   && apt-get install -y sudo python-wstool python-rosdep ninja-build \

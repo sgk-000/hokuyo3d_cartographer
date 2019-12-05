@@ -46,18 +46,20 @@
      
   <node pkg="hokuyo3d" type="hokuyo3d" name="hokuyo3d"
       respawn="true" unless="$(arg use_log)">
+    <param name="frame_id" value="hokuyo3d" />
     <param name="output_cycle" value="frame" />
-    <param name="interlace" value="2" />
+    <param name="interlace" value="1" />
     <remap from="~/hokuyo_cloud2" to="/cloud" />
   </node>
 
-  <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf" />
+  <param name="robot_description" textfile="$(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
   <include file="$(find microstrain_mips)/launch/microstrain.launch" >
     <arg name="port" default="/dev/ttyACM0" /> 
     <arg name="imu_frame_id" default="hokuyo3d_imu"/>
-    <arg name="imu_topic" default="/gx5/imu/data" /> 
+    <!--remap from="/gx5/imu/data" to="/imu/data" /-->
+    <arg name="imu_topic" default="/imu/data" /> 
   </include>
       
   <node name="rviz" pkg="rviz" type="rviz" respawn="true"

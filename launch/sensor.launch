@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <!--
   Copyright 2017 cartographer_hokuyo3d authors
   All rights reserved.
@@ -13,8 +13,8 @@
   documentation and/or other materials provided with the distribution.
   * Neither the name of the copyright holder nor the names of its 
   contributors may be used to endorse or promote products derived from 
+  
   this software without specific prior written permission.
-
   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -28,15 +28,30 @@
   POSSIBILITY OF SUCH DAMAGE.
 -->
 <launch>
-  <node name="cartographer_assets_writer" pkg="cartographer_ros" required="true"
-      type="cartographer_assets_writer" args="
-          -configuration_directory $(find cartographer_hokuyo3d)/configuration_files
-          -configuration_basename cartographer_asset.lua
-          -output_file_prefix /home/koby/robocup/gc_ws/slam_results
-          -bag_filenames /home/koby/robocup/data/bag/pb.bag
-          -pose_graph_filename /home/koby/robocup/gc_ws/slam_results/pose_graph.pbstream
-          -urdf_filename $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf"
-      output="screen">
+  <arg name="bag_file" default="/home/koby/robocup/data/bag/pb-3d.bag" />
+  <arg name="record" default="true" />
+
+  <node pkg="hokuyo3d" type="hokuyo3d" name="hokuyo3d">
+    <param name="output_cycle" value="frame" />
+    <param name="interlace" value="1" />
+    <param name="frame_id" value="hokuyo3d" />
+    <remap from="~/hokuyo_cloud2" to="/cloud" />
   </node>
 
+  <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+  <include file="$(find microstrain_mips)/launch/microstrain.launch">
+    <arg name="port" default="/dev/ttyACM0" />
+    <arg name="imu_rate" default="100" />
+    <arg name="imu_frame_id" default="hokuyo3d_imu" />
+    <arg name="imu_topic" default="/imu/data_raw" />
+    <arg name="imu_filtered_topic" default="/gx5/filtered/imu/data" />
+  </include>
+  <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter">
+    <param name="use_mag" type="bool" value="false" />
+    <param name="publish_tf" type="bool" value="false" />
+  </node>
+  <node pkg="usb_cam" type="usb_cam_node" name="usb_cam" />
+  <node pkg="rosbag" type="record" name="rosbag_record" args="-O $(arg bag_file) /cloud /imu/data /usb_cam/image_raw" output="screen" if="$(arg record)" />
 </launch>

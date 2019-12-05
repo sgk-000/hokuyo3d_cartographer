@@ -33,10 +33,10 @@ options = {
   trajectory_builder = TRAJECTORY_BUILDER,
   map_frame = "map",
   tracking_frame = "hokuyo3d_imu",
-  published_frame = "hokuyo3d_link",
-  odom_frame = "hokuyo3d_link",
+  published_frame = "odom",
+  odom_frame = "odom",
   publish_frame_projected_to_2d = true,
-  provide_odom_frame = false,
+  provide_odom_frame = true,
   use_odometry = false,
   use_nav_sat = false,
   use_landmarks = false,
@@ -67,12 +67,12 @@ TRAJECTORY_BUILDER_3D.voxel_filter_size = 0.05
 
 TRAJECTORY_BUILDER_3D.high_resolution_adaptive_voxel_filter.max_range = 10.
 TRAJECTORY_BUILDER_3D.low_resolution_adaptive_voxel_filter.max_range = MAX_3D_LASER_RANGE
-
+TRAJECTORY_BUILDER_3D.use_online_correlative_scan_matching = true
 TRAJECTORY_BUILDER_3D.motion_filter.max_time_seconds = 1.0
 TRAJECTORY_BUILDER_3D.motion_filter.max_distance_meters = 0.05
 TRAJECTORY_BUILDER_3D.motion_filter.max_angle_radians = 0.02
 
-TRAJECTORY_BUILDER_3D.submaps.num_range_data = 1
+TRAJECTORY_BUILDER_3D.submaps.num_range_data = 15
 TRAJECTORY_BUILDER_3D.submaps.high_resolution = 0.05
 TRAJECTORY_BUILDER_3D.submaps.low_resolution = 0.35
 TRAJECTORY_BUILDER_3D.submaps.high_resolution_max_range = 10.
