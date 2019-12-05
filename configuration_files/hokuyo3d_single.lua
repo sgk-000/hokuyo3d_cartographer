@@ -69,12 +69,16 @@ TRAJECTORY_BUILDER_3D.submaps.num_range_data = 50
 
 TRAJECTORY_BUILDER_3D.high_resolution_adaptive_voxel_filter.max_range = 10.
 TRAJECTORY_BUILDER_3D.low_resolution_adaptive_voxel_filter.max_range = MAX_3D_LASER_RANGE
-
+TRAJECTORY_BUILDER_3D.use_online_correlative_scan_matching = true
 TRAJECTORY_BUILDER_3D.motion_filter.max_time_seconds = 1.0
 TRAJECTORY_BUILDER_3D.motion_filter.max_distance_meters = 0.05
 TRAJECTORY_BUILDER_3D.motion_filter.max_angle_radians = 0.02
 
+<<<<<<< HEAD
 TRAJECTORY_BUILDER_3D.submaps.num_range_data = 10
+=======
+TRAJECTORY_BUILDER_3D.submaps.num_range_data = 15
+>>>>>>> 169e69ccb1a6fba2cf5d4156b837f48a1aa5b25b
 TRAJECTORY_BUILDER_3D.submaps.high_resolution = 0.05
 TRAJECTORY_BUILDER_3D.submaps.low_resolution = 0.35
 TRAJECTORY_BUILDER_3D.submaps.high_resolution_max_range = 10.

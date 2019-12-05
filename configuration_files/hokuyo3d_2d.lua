@@ -47,6 +47,8 @@ TRAJECTORY_BUILDER_2D.use_imu_data = true
 TRAJECTORY_BUILDER_2D.use_online_correlative_scan_matching = false
 TRAJECTORY_BUILDER_2D.submaps.num_range_data = 50
 POSE_GRAPH.optimization_problem.huber_scale = 1e2
-TRAJECTORY_BUILDER_2D.num_accumulated_range_data = 1  
+TRAJECTORY_BUILDER_2D.num_accumulated_range_data = 1
+
+
 
 return options
