@@ -33,7 +33,9 @@
     <arg name="rviz" default="true" />
     <arg name="use_log" default="false" />
     <arg name="record" default="false" />
+
     <arg name="bag_filename" default="/home/koby/robocup/data/bag/pb.bag" />
+
 
     <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf" />
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
