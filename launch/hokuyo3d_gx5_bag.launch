@@ -56,13 +56,9 @@
 
     <!--node name="rviz" pkg="rviz" type="rviz" respawn="true" args="-d $(find cartographer_hokuyo3d)/configuration_files/demo_3d.rviz" if="$(arg rviz)" /-->
 
-<<<<<<< HEAD
-    <node name="playbag" pkg="rosbag" type="play" args="--clock $(arg bag_filename)" />
 
-=======
     <node name="playbag" pkg="rosbag" type="play" args="--clock $(arg bag_filename)" >
         <!--remap from="/gx5/imu/data" to="/imu/data_raw" /-->
         <!--remap from="/hokuyo3d/hokuyo_cloud2" to="/cloud" /-->
     </node>
->>>>>>> 1d5a8450623d173ba290c285e8127daf70137b9e
 </launch>
