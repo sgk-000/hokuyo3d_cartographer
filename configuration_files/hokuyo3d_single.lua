@@ -79,6 +79,8 @@ TRAJECTORY_BUILDER_3D.submaps.high_resolution_max_range = 10.
 TRAJECTORY_BUILDER_3D.submaps.range_data_inserter.hit_probability = 0.65
 TRAJECTORY_BUILDER_3D.submaps.range_data_inserter.miss_probability = 0.4
 
+POSE_GRAPH.optimization_problem.log_solver_summary = true
+
 --------------------------------
 -- Map builder settings.
 
