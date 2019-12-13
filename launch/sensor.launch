@@ -30,6 +30,7 @@
 <launch>
   <arg name="bag_file" default="/home/koby/robocup/data/bag/pb-test.bag" />
   <arg name="record" default="false" />
+  <arg name="publish_tf" default="true" />
 
   <node pkg="hokuyo3d" type="hokuyo3d" name="hokuyo3d">
     <param name="output_cycle" value="frame" />
@@ -39,7 +40,7 @@
   </node>
 
   <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf" />
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" if="$(arg publish_tf)"/>
 
   <include file="$(find microstrain_mips)/launch/microstrain.launch">
     <arg name="port" default="/dev/ttyACM0" />
@@ -52,8 +53,6 @@
     <param name="use_mag" type="bool" value="false" />
     <param name="publish_tf" type="bool" value="false" />
   </node>
-  <!--node pkg="usb_cam" type="usb_cam_node" name="usb_cam" /-->
+  <node pkg="usb_cam" type="usb_cam_node" name="usb_cam" />
   <node pkg="rosbag" type="record" name="rosbag_record" args="-a -O $(arg bag_file)" output="screen" if="$(arg record)" />
 </launch>
-
-<!--/cloud /imu/data /usb_cam/image_raw-->

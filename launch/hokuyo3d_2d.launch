@@ -43,12 +43,15 @@
     <include file="$(find microstrain_mips)/launch/microstrain.launch">
         <arg name="port" default="/dev/ttyACM0" />
         <arg name="imu_frame_id" default="hokuyo3d_imu" />
-        <!--remap from="/gx5/imu/data" to="/imu/data" /-->   
+        <!--remap from="/gx5/imu/data" to="/imu/data" /-->
         <arg name="imu_topic" default="/imu/data" />
         <arg name="imu_rate" default="100" />
         <!--arg name="imu_filtered_topic" default="/gx5/filtered/imu/data" / -->
     </include>
-
+    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter">
+        <param name="use_mag" type="bool" value="false" />
+        <param name="publish_tf" type="bool" value="false" />
+    </node>
     <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find cartographer_ros)/configuration_files/demo_2d.rviz" />
 
 </launch>

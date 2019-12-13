@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <launch>
-
+  <param name="/use_sim_time" value="true" />
   <arg name="bag_filename" default="/catkin_ws/data/bag/pb-3d.bag" />
 
   <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
-  <node name="cartographer_node" pkg="cartographer_ros"
-	type="cartographer_node"
+  <node name="cartographer_node" pkg="cartographer_ros" type="cartographer_node"
 	args="-configuration_directory $(find cartographer_hokuyo3d)/configuration_files
               -configuration_basename hokuyo3d_single.lua" output="screen">
     <remap from="/imu" to="/imu/data" />
