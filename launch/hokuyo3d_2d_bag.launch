@@ -21,7 +21,7 @@
     <arg name="rviz" default="false" />
     <arg name="use_log" default="false" />
     <arg name="record" default="false" />
-    <arg name="bag_filename" default="/home/UoA/robocup/data/bag/hokuyo3d-gx5-imu-corrected.bag" />
+    <arg name="bag_filename" default="/home/UoA/robocup/data/bag/pb-3d.bag" />
 
     <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf" />
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
@@ -36,10 +36,10 @@
     <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros" type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
 
     <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find cartographer_hokuyo3d)/configuration_files/demo_3d.rviz" />
-    <node name="playbag" pkg="rosbag" type="play" args="--clock $(arg bag_filename)" >
-      <remap from="/hokuyo3d/hokuyo_cloud2" to="/cloud" />
-      <remap from="/gx5/imu/data" to="/imu/data" />
-      <remap from="/gx5/filtered/imu/data" to="/imu/data" />         
+    <node name="playbag" pkg="rosbag" type="play" args="--clock -r 3.0 $(arg bag_filename)" >
+      <!--remap from="/hokuyo3d/hokuyo_cloud2" to="/cloud" /-->
+      <!--remap from="/gx5/imu/data" to="/imu/data" /-->
+      <!--remap from="/gx5/filtered/imu/data" to="/imu/data" /-->         
 </node>
 
 </launch>

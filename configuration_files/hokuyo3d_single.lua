@@ -33,9 +33,9 @@ options = {
   trajectory_builder = TRAJECTORY_BUILDER,
   map_frame = "map",
   tracking_frame = "hokuyo3d_imu",
-  published_frame = "hokuyo3d_link",
-  odom_frame = "hokuyo3d_link",
-  publish_frame_projected_to_2d = false,
+  published_frame = "base_link",
+  odom_frame = "base_link",
+  publish_frame_projected_to_2d = true,
   provide_odom_frame = false,
   use_odometry = false,
   use_nav_sat = false,
@@ -65,22 +65,22 @@ TRAJECTORY_BUILDER_3D.min_range = 0.5
 TRAJECTORY_BUILDER_3D.num_accumulated_range_data = 1
 TRAJECTORY_BUILDER_3D.voxel_filter_size = 0.05
 TRAJECTORY_BUILDER_3D.use_online_correlative_scan_matching = false
-TRAJECTORY_BUILDER_3D.submaps.num_range_data = 50
+TRAJECTORY_BUILDER_3D.submaps.num_range_data = 300
 
 TRAJECTORY_BUILDER_3D.high_resolution_adaptive_voxel_filter.max_range = 10.
 TRAJECTORY_BUILDER_3D.low_resolution_adaptive_voxel_filter.max_range = MAX_3D_LASER_RANGE
-TRAJECTORY_BUILDER_3D.use_online_correlative_scan_matching = true
 TRAJECTORY_BUILDER_3D.motion_filter.max_time_seconds = 1.0
 TRAJECTORY_BUILDER_3D.motion_filter.max_distance_meters = 0.05
 TRAJECTORY_BUILDER_3D.motion_filter.max_angle_radians = 0.02
 
-
-TRAJECTORY_BUILDER_3D.submaps.num_range_data = 15
 TRAJECTORY_BUILDER_3D.submaps.high_resolution = 0.05
 TRAJECTORY_BUILDER_3D.submaps.low_resolution = 0.35
 TRAJECTORY_BUILDER_3D.submaps.high_resolution_max_range = 10.
 TRAJECTORY_BUILDER_3D.submaps.range_data_inserter.hit_probability = 0.65
 TRAJECTORY_BUILDER_3D.submaps.range_data_inserter.miss_probability = 0.4
+
+TRAJECTORY_BUILDER_3D.ceres_scan_matcher.translation_weight = 50
+TRAJECTORY_BUILDER_3D.ceres_scan_matcher.rotation_weight = 25
 
 POSE_GRAPH.optimization_problem.log_solver_summary = true
 
@@ -88,13 +88,13 @@ POSE_GRAPH.optimization_problem.log_solver_summary = true
 -- Map builder settings.
 
 MAP_BUILDER.use_trajectory_builder_3d = true
-MAP_BUILDER.num_background_threads = 3
+MAP_BUILDER.num_background_threads = 6
 
 MAP_BUILDER.pose_graph.optimization_problem.huber_scale = 1.0
-MAP_BUILDER.pose_graph.optimize_every_n_nodes = 2
+MAP_BUILDER.pose_graph.optimize_every_n_nodes = 0
 MAP_BUILDER.pose_graph.constraint_builder.sampling_ratio = 0.5
 MAP_BUILDER.pose_graph.global_sampling_ratio = 0.1
-MAP_BUILDER.pose_graph.optimization_problem.ceres_solver_options.max_num_iterations = 12
+MAP_BUILDER.pose_graph.optimization_problem.ceres_solver_options.max_num_iterations = 50
 
 -- Set min_score according to the histogram from cartographer.
 MAP_BUILDER.pose_graph.constraint_builder.min_score = 0.45
