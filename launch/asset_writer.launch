@@ -32,9 +32,9 @@
       type="cartographer_assets_writer" args="
           -configuration_directory $(find cartographer_hokuyo3d)/configuration_files
           -configuration_basename cartographer_asset.lua
-          -output_file_prefix /home/koby/robocup/gc_ws/slam_results
-          -bag_filenames /home/koby/robocup/data/bag/pb.bag
-          -pose_graph_filename /home/koby/robocup/gc_ws/slam_results/pose_graph.pbstream
+          -output_file_prefix /home/UoA/robocup/gc_ws/slam_results
+          -bag_filenames /home/UoA/robocup/data/bag/no_image//bachelor5_no_image.bag
+          -pose_graph_filename /home/UoA/robocup/gc_ws/slam_results/pose_graph.pbstream
           -urdf_filename $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf"
       output="screen">
   </node>
