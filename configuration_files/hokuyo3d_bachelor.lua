@@ -56,16 +56,16 @@ options = {
 }
 
 MAX_3D_LASER_RANGE = 25.
-NORMAL_3D_LASER_RANGE = 10
+NORMAL_3D_LASER_RANGE = 5
 NORMAL_VOXEL_SIZE = 0.05
-MAX_VOXEL_SIZE = 0.01
+MAX_VOXEL_SIZE = 0.03
 --------------------------------
 -- Trajectory builder settings.
 
 TRAJECTORY_BUILDER_3D.max_range = MAX_3D_LASER_RANGE
 TRAJECTORY_BUILDER_3D.min_range = 0.3
 TRAJECTORY_BUILDER_3D.num_accumulated_range_data = 1
-TRAJECTORY_BUILDER_3D.voxel_filter_size = NORMAL_VOXEL_SIZE
+TRAJECTORY_BUILDER_3D.voxel_filter_size = MAX_VOXEL_SIZE
 TRAJECTORY_BUILDER_3D.use_online_correlative_scan_matching = false
 TRAJECTORY_BUILDER_3D.submaps.num_range_data = 100
 TRAJECTORY_BUILDER_3D.imu_gravity_time_constant = 1
@@ -77,15 +77,15 @@ TRAJECTORY_BUILDER_3D.motion_filter.max_time_seconds = 1.0
 TRAJECTORY_BUILDER_3D.motion_filter.max_distance_meters = 0.05
 TRAJECTORY_BUILDER_3D.motion_filter.max_angle_radians = 0.01
 
-TRAJECTORY_BUILDER_3D.submaps.high_resolution = NORMAL_VOXEL_SIZE
+TRAJECTORY_BUILDER_3D.submaps.high_resolution = MAX_VOXEL_SIZE
 TRAJECTORY_BUILDER_3D.submaps.low_resolution = 0.35
 TRAJECTORY_BUILDER_3D.submaps.high_resolution_max_range = NORMAL_3D_LASER_RANGE
 TRAJECTORY_BUILDER_3D.submaps.range_data_inserter.hit_probability = 0.65
 TRAJECTORY_BUILDER_3D.submaps.range_data_inserter.miss_probability = 0.4
 
 
-TRAJECTORY_BUILDER_3D.ceres_scan_matcher.translation_weight = 80
-TRAJECTORY_BUILDER_3D.ceres_scan_matcher.rotation_weight = 6
+TRAJECTORY_BUILDER_3D.ceres_scan_matcher.translation_weight = 100
+TRAJECTORY_BUILDER_3D.ceres_scan_matcher.rotation_weight = 5
 --------------------------------
 -- Map builder settings.
 
@@ -94,26 +94,25 @@ MAP_BUILDER.pose_graph.optimization_problem.acceleration_weight = 1
 MAP_BUILDER.pose_graph.optimization_problem.rotation_weight = 1
 
 MAP_BUILDER.use_trajectory_builder_3d = true
-MAP_BUILDER.num_background_threads = 25
+MAP_BUILDER.num_background_threads = 27
 
 MAP_BUILDER.pose_graph.optimization_problem.huber_scale = 1.0
-MAP_BUILDER.pose_graph.optimize_every_n_nodes = 0
-MAP_BUILDER.pose_graph.constraint_builder.sampling_ratio = 0.5
---MAP_BUILDER.pose_graph.constraint_builder.max_constraint_distance = 0.5
-MAP_BUILDER.pose_graph.global_sampling_ratio = 0.1
+MAP_BUILDER.pose_graph.optimize_every_n_nodes = 60
+MAP_BUILDER.pose_graph.constraint_builder.sampling_ratio = 1
+MAP_BUILDER.pose_graph.global_sampling_ratio = 1
 MAP_BUILDER.pose_graph.optimization_problem.ceres_solver_options.max_num_iterations = 100
 
 -- Set min_score according to the histogram from cartographer.
-MAP_BUILDER.pose_graph.constraint_builder.min_score = 0.30
+MAP_BUILDER.pose_graph.constraint_builder.min_score = 0.25
 MAP_BUILDER.pose_graph.constraint_builder.global_localization_min_score = 0.55
 
 -- Global constraint settings.
-MAP_BUILDER.pose_graph.constraint_builder.max_constraint_distance= 3.0
-MAP_BUILDER.pose_graph.constraint_builder.fast_correlative_scan_matcher_3d.linear_xy_search_window = 3.0
-MAP_BUILDER.pose_graph.constraint_builder.fast_correlative_scan_matcher_3d.linear_z_search_window = 3.0
+MAP_BUILDER.pose_graph.constraint_builder.max_constraint_distance= 10.0
+MAP_BUILDER.pose_graph.constraint_builder.fast_correlative_scan_matcher_3d.linear_xy_search_window = 10.0
+MAP_BUILDER.pose_graph.constraint_builder.fast_correlative_scan_matcher_3d.linear_z_search_window = 1.0
 MAP_BUILDER.pose_graph.constraint_builder.fast_correlative_scan_matcher_3d.angular_search_window = math.rad(45.)
 
-MAP_BUILDER.pose_graph.global_constraint_search_after_n_seconds = 5.0
-MAP_BUILDER.pose_graph.max_num_final_iterations = 100000000
+MAP_BUILDER.pose_graph.global_constraint_search_after_n_seconds = 1.0
+MAP_BUILDER.pose_graph.max_num_final_iterations = 100000000000000
 
 return options
