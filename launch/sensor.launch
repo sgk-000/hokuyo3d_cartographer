@@ -28,8 +28,8 @@
   POSSIBILITY OF SUCH DAMAGE.
 -->
 <launch>
-  <arg name="bag_file" default="/home/koby/robocup/data/bag/pb-test.bag" />
-  <arg name="record" default="false" />
+  <arg name="bag_file" default="/home/koby/robocup/data/bag/3rd-floor.bag" />
+  <arg name="record" default="true" />
   <arg name="publish_tf" default="true" />
 
   <node pkg="hokuyo3d" type="hokuyo3d" name="hokuyo3d">
@@ -54,5 +54,5 @@
     <param name="publish_tf" type="bool" value="false" />
   </node>
   <node pkg="usb_cam" type="usb_cam_node" name="usb_cam" />
-  <node pkg="rosbag" type="record" name="rosbag_record" args="-a -O $(arg bag_file)" output="screen" if="$(arg record)" />
+  <node pkg="rosbag" type="record" name="rosbag_record" args="-O $(arg bag_file) /cloud /imu/data /usb_cam/image_raw" output="screen" if="$(arg record)" />
 </launch>

@@ -34,7 +34,7 @@
     <arg name="use_log" default="false" />
     <arg name="record" default="false" />
 
-    <arg name="bag_filename" default="/home/koby/robocup/data/bag/pb.bag" />
+    <arg name="bag_filename" default="/home/koby/robocup/data/bag/bachelor/bachelor5.bag" />
 
 
     <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf" />
@@ -47,18 +47,10 @@
         <remap from="points2" to="/cloud" />
     </node>
 
-      <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter">
-    <param name="use_mag" type="bool" value="false" />
-    <param name="publish_tf" type="bool" value="false" />
-  </node>
+    <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros" type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
 
-    <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros" type="cartographer_occupancy_grid_node" args="-resolution 0.1" />
-
-    <!--node name="rviz" pkg="rviz" type="rviz" respawn="true" args="-d $(find cartographer_hokuyo3d)/configuration_files/demo_3d.rviz" if="$(arg rviz)" /-->
+    <node name="rviz" pkg="rviz" type="rviz" respawn="true" args="-d $(find cartographer_hokuyo3d)/configuration_files/demo_3d.rviz" if="$(arg rviz)" />
 
 
-    <node name="playbag" pkg="rosbag" type="play" args="--clock $(arg bag_filename)" >
-        <!--remap from="/gx5/imu/data" to="/imu/data_raw" /-->
-        <!--remap from="/hokuyo3d/hokuyo_cloud2" to="/cloud" /-->
-    </node>
+    <node name="playbag" pkg="rosbag" type="play" args="--clock $(arg bag_filename)" />
 </launch>

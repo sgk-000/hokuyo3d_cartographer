@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <param name="/use_sim_time" value="true" />
-  <arg name="bag_filename" default="/catkin_ws/data/bag/pb-3d.bag" />
+  <arg name="bag_filename" default="/home/koby/robocup/data/bag/ramp3.bag" />
 
   <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d_gx5.urdf" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />

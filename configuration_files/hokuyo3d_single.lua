@@ -74,7 +74,7 @@ TRAJECTORY_BUILDER_3D.motion_filter.max_distance_meters = 0.05
 TRAJECTORY_BUILDER_3D.motion_filter.max_angle_radians = 0.02
 
 
-TRAJECTORY_BUILDER_3D.submaps.num_range_data = 15
+
 TRAJECTORY_BUILDER_3D.submaps.high_resolution = 0.05
 TRAJECTORY_BUILDER_3D.submaps.low_resolution = 0.35
 TRAJECTORY_BUILDER_3D.submaps.high_resolution_max_range = 10.
@@ -90,7 +90,7 @@ MAP_BUILDER.use_trajectory_builder_3d = true
 MAP_BUILDER.num_background_threads = 3
 
 MAP_BUILDER.pose_graph.optimization_problem.huber_scale = 1.0
-MAP_BUILDER.pose_graph.optimize_every_n_nodes = 2
+MAP_BUILDER.pose_graph.optimize_every_n_nodes = 5
 MAP_BUILDER.pose_graph.constraint_builder.sampling_ratio = 0.5
 MAP_BUILDER.pose_graph.global_sampling_ratio = 0.1
 MAP_BUILDER.pose_graph.optimization_problem.ceres_solver_options.max_num_iterations = 12
